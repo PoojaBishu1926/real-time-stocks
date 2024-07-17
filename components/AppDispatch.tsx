@@ -2,20 +2,16 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchStockData } from '../store/stockSlice';
 import { RootState, AppDispatch } from '../store';
-import StockTable from '../components/stockTable';
+import StockTable from './stockTable';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();  // Use AppDispatch type here
+  const dispatch = useDispatch<AppDispatch>();
   const currentSymbol = useSelector((state: RootState) => state.stock.currentSymbol);
 
   useEffect(() => {
-    const fetchData = () => {
+    const interval = setInterval(() => {
       dispatch(fetchStockData(currentSymbol));
-    };
-
-    fetchData(); // Fetch immediately on component mount
-
-    const interval = setInterval(fetchData, 60000); // Then fetch every minute
+    }, 60000); // Fetch every minute to avoid hitting API rate limits
 
     return () => clearInterval(interval);
   }, [dispatch, currentSymbol]);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCurrentSymbol } from '../store/cryptoSlics';
+import { setCurrentSymbol } from '../store/stockSlice';
 
 interface ChangeSymbolModalProps {
   isOpen: boolean;
